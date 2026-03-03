@@ -28,17 +28,13 @@ jobs:
       run: npm run build --if-present
       working-directory: ./BrigandoWeb
 
-    - name: Check build output
-      run: ls -la dist/ && echo "---" && ls -la dist/BrigandoWeb/
-      working-directory: ./BrigandoWeb
-
     - name: Configure GitHub Pages
       uses: actions/configure-pages@v5
 
     - name: Upload built artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: BrigandoWeb/dist/BrigandoWeb
+        path: BrigandoWeb/dist/BrigandoWeb/browser
 
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
