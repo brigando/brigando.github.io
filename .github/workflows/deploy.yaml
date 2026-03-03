@@ -11,6 +11,9 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./BrigandoWeb
     steps:
     - id: build-publish
       uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
