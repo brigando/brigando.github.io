@@ -29,7 +29,7 @@ jobs:
       working-directory: ./BrigandoWeb
 
     - name: Check build output
-      run: ls -la dist/
+      run: ls -la dist/ && echo "---" && ls -la dist/BrigandoWeb/
       working-directory: ./BrigandoWeb
 
     - name: Configure GitHub Pages
