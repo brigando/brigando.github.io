@@ -1,62 +1,110 @@
- .title {
-     font-family: 'tomorrow-bold';
- }
+.title {
+    font-size: 4rem;
+}
 
- .subtitle {
-     font-family: 'tomorrow-thin';
- }
+.subtitle {
+    font-size: 1.5rem;
+}
 
- .title-container {
-     display: flex;
-     flex-direction: column;
+.bold {
+    font-family: 'tomorrow-bold';
+}
 
-     justify-content: center;
+.thin {
+    font-family: 'tomorrow-thin';
+}
 
-     .title-bar {
-         display: flex;
-         flex-direction: column;
+.title-container {
+    display: flex;
+    flex-direction: column;
 
-         justify-content: center;
-         text-align: center;
-     }
- }
+    width: 100%;
 
- .card-container {
-     display: flex;
-     flex-direction: column;
+    padding-block-start: 6rem;
 
-     justify-content: center;
+    justify-content: center;
+    align-items: center;
+}
 
-     .card-row {
-         display: flex;
-         flex-direction: row;
+.card-container {
+    display: flex;
+    flex-direction: column;
 
-         gap: 2rem;
-         padding-block: 4rem;
-         padding-inline: 8rem;
+    justify-content: center;
 
-         justify-content: center;
-         align-items: center;
+    .card-row {
+        display: flex;
+        flex-direction: row;
 
-         .card {
-             display: flex;
-             flex-direction: column;
+        height: 32rem;
 
-             width: 9rem;
-             height: 32rem;
-             border-radius: 0.5rem;
+        gap: 2rem;
+        padding-block: 1rem;
+        padding-inline: 1rem;
 
-             justify-content: space-between;
-             text-align: center;
+        justify-content: center;
+        align-items: center;
 
-             color: #FFFFFF;
-             background-color: #000000;
-         }
+        .anim {
+            transition: 0.3s ease-in-out;
+        }
 
-         .divider {
-             width: 1px;
-             height: 4rem;
-             background-color: #000000;
-         }
-     }
- }
+        .card {
+            display: flex;
+            flex-direction: column;
+
+            width: 10rem;
+            height: 16rem;
+            border-radius: 0.1rem;
+
+            justify-content: space-between;
+            text-align: center;
+
+            color: #FFFFFF;
+            background-color: #000000;
+
+            .bold {
+                color: #000000;
+            }
+
+            .thin {
+                color: #000000;
+            }
+        }
+
+        .card:hover {
+            width: 18rem;
+            height: 32rem;
+
+            .bold {
+                color: #FFFFFF;
+            }
+
+            .thin {
+                color: #FFFFFF;
+            }
+        }
+
+        .nth-studio:hover {
+            background-color: #141518;
+        }
+
+        .soarer-cycles:hover {
+            background-color: #ec3737;
+        }
+
+        .brigando-tech:hover {
+            background-color: #35418f;
+        }
+
+        .brn-robot:hover {
+            background-color: #e77b34;
+        }
+
+        .divider {
+            width: 1px;
+            height: 4rem;
+            background-color: #000000;
+        }
+    }
+}
