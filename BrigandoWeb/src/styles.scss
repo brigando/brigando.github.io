@@ -16,8 +16,12 @@
   --card-fg-color: #FFFFFF;
 
   --primary-nth: #141518;
+  --secondary-nth: #1e4147;
+
   --primary-soarer: #ec3737;
+
   --primary-btech: #35418f;
+
   --primary-brn: #e77b34;
 }
 
@@ -26,8 +30,26 @@ body {
   background-color: var(--main-bg-color);
 }
 
+.nth-hovered-bg {
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(200deg, var(--main-bg-color), var(--secondary-nth));
+  background-size: 150% 150%;
+}
+
 .soarer-hovered-bg {
   transition: 0.3s ease-in-out;
   background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-soarer));
+  background-size: 150% 150%;
+}
+
+.btech-hovered-bg {
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-btech));
+  background-size: 150% 150%;
+}
+
+.brn-hovered-bg {
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-brn));
   background-size: 150% 150%;
 }
