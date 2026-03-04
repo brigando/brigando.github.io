@@ -1,14 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
   font-family: 'tomorrow-bold';
-  src: url('assets/fonts/Tomorrow-Bold.ttf');
+  src: url('/fonts/Tomorrow-Bold.ttf');
 }
 
 @font-face {
   font-family: 'tomorrow-thin';
-  src: url('assets/fonts/Tomorrow-Thin.ttf');
+  src: url('/fonts/Tomorrow-Thin.ttf');
 }
 
-html {
-  background-color: #F0F0FF;
+:root {
+  --main-bg-color: #141518;
+  --main-fg-color: #F0F0F0;
+  --card-bg-color: #8b89a6;
+  --card-fg-color: #FFFFFF;
+
+  --primary-nth: #141518;
+  --primary-soarer: #ec3737;
+  --primary-btech: #35418f;
+  --primary-brn: #e77b34;
+}
+
+body {
+  height: 100%;
+  background-color: var(--main-bg-color);
+}
+
+.soarer-hovered-bg {
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-soarer));
+  background-size: 150% 150%;
 }

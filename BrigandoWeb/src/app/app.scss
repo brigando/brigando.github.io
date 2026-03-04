@@ -20,10 +20,12 @@
 
     width: 100%;
 
-    padding-block-start: 6rem;
+    padding-block-start: 4rem;
 
     justify-content: center;
     align-items: center;
+
+    color: var(--main-fg-color);
 }
 
 .card-container {
@@ -39,15 +41,11 @@
         height: 32rem;
 
         gap: 2rem;
-        padding-block: 1rem;
+        padding-block: 2rem;
         padding-inline: 1rem;
 
         justify-content: center;
         align-items: center;
-
-        .anim {
-            transition: 0.3s ease-in-out;
-        }
 
         .card {
             display: flex;
@@ -58,17 +56,23 @@
             border-radius: 0.1rem;
 
             justify-content: space-between;
+            align-items: center;
             text-align: center;
 
-            color: #FFFFFF;
-            background-color: #000000;
+            color: var(--main-fg-color);
+            background-color: var(--card-bg-color);
 
             .bold {
-                color: #000000;
+                color: var(--card-bg-color);
             }
 
             .thin {
-                color: #000000;
+                color: var(--card-bg-color);
+            }
+
+            .sq-logo {
+                width: 6rem;
+                height: 6rem;
             }
         }
 
@@ -77,34 +81,43 @@
             height: 32rem;
 
             .bold {
-                color: #FFFFFF;
+                color: var(--card-fg-color);
             }
 
             .thin {
-                color: #FFFFFF;
+                color: var(--card-fg-color);
+            }
+
+            .sq-logo {
+                width: 10rem;
+                height: 10rem;
             }
         }
 
         .nth-studio:hover {
-            background-color: #141518;
+            background-color: var(--primary-nth);
         }
 
         .soarer-cycles:hover {
-            background-color: #ec3737;
+            background-color: var(--primary-soarer);
         }
 
         .brigando-tech:hover {
-            background-color: #35418f;
+            background-color: var(--primary-btech);
         }
 
         .brn-robot:hover {
-            background-color: #e77b34;
+            background-color: var(--primary-brn);
         }
 
         .divider {
             width: 1px;
             height: 4rem;
-            background-color: #000000;
+            background-color: var(--card-bg-color);
         }
     }
+}
+
+.anim {
+    transition: 0.3s ease-in-out;
 }
