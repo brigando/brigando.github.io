@@ -12,23 +12,26 @@ export class App implements OnInit {
   
   ngOnInit(): void {
     console.log("TRYING");
+    const nthCard = document.getElementById('nth-studios-card');
     const soarerCard = document.getElementById('soarer-cycles-card');
-    const pageBody = document.body;
+    const btechCard = document.getElementById('brigando-tech-card');
+    const brnCard = document.getElementById('brn-robots-card');
 
-    if (soarerCard !== null) {
-      console.log("GOT");
-      soarerCard.addEventListener('mouseover', function () {
-        console.log("GOT")
-        pageBody.classList.add('soarer-hovered-bg');
+    this.setupListeners(nthCard, 'nth-hovered-bg');
+    this.setupListeners(soarerCard, 'soarer-hovered-bg');
+    this.setupListeners(btechCard, 'btech-hovered-bg');
+    this.setupListeners(brnCard, 'brn-hovered-bg');
+  }
+
+  private setupListeners(element: HTMLElement | null, classToAdd: string) : void {
+    if (element !== null) {
+      element.addEventListener('mouseover', function () {
+        document.body.classList.add(classToAdd);
       });
 
-      soarerCard.addEventListener('mouseout', function () {
-        console.log("NOT GOT")
-        pageBody.classList.remove('soarer-hovered-bg');
+      element.addEventListener('mouseout', function () {
+        document.body.classList.remove(classToAdd);
       });
-    }
-    else {
-      console.log("NOT EL FOUND");
     }
   }
 }
