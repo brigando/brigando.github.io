@@ -1,0 +1,172 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  color: var(--main-fg-color);
+  background-color: var(--main-bg-color);
+  transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out, filter 0.7s ease-in-out;
+
+  &.leaving {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: blur(6px);
+    pointer-events: none;
+  }
+}
+
+.word {
+  margin: 0;
+  font-size: clamp(3rem, 12vw, 6rem);
+  font-weight: normal;
+}
+
+// Letters rise in one after another, then flicker while loading.
+.letter {
+  display: inline-block;
+  opacity: 0;
+  animation:
+    rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+    flicker 1.6s steps(1) infinite;
+  animation-delay:
+    calc(var(--i) * 80ms),
+    calc(0.8s + var(--i) * 130ms);
+
+  .ready & {
+    animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: calc(var(--i) * 80ms);
+  }
+}
+
+// Loader and button share one spot so the button replaces the bar.
+.stage {
+  display: grid;
+  place-items: center;
+  height: 3rem;
+
+  > * {
+    grid-area: 1 / 1;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+}
+
+.loader {
+  width: 14rem;
+
+  .ready & {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+}
+
+.meter {
+  display: flex;
+  justify-content: space-between;
+  margin-block-end: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--hud-color);
+}
+
+.bar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+
+  span {
+    display: block;
+    height: 100%;
+    background: var(--card-bg-color);
+    box-shadow: 0 0 8px var(--card-bg-color);
+    transition: width 0.1s linear;
+  }
+}
+
+.enter {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--main-fg-color);
+  background: transparent;
+  border: 1px solid var(--card-bg-color);
+  clip-path: polygon(0.6rem 0, 100% 0, 100% calc(100% - 0.6rem), calc(100% - 0.6rem) 100%, 0 100%, 0 0.6rem);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.5s ease-in-out 0.2s,
+    transform 0.5s ease-in-out 0.2s,
+    background-color 0.3s,
+    color 0.3s;
+
+  .ready & {
+    opacity: 1;
+    transform: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--main-bg-color);
+    background-color: var(--main-fg-color);
+    outline: none;
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+.log {
+  position: absolute;
+  left: 2.5rem;
+  bottom: 3.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: var(--hud-color);
+
+  .prompt {
+    color: var(--card-bg-color);
+  }
+
+  .ok {
+    margin-inline-start: 0.5rem;
+    color: #4dff9a;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  40% { opacity: 0.35; }
+  44% { opacity: 1; }
+  70% { opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .log {
+    left: 1.5rem;
+  }
+}

@@ -1,0 +1,28 @@
+@if (project(); as p) {
+  <article class="case-study" [style.--accent]="p.accent">
+    <a class="back mono" routerLink="/">&lt; Return</a>
+
+    <header class="hero">
+      <div class="logo-frame">
+        <img
+          class="logo"
+          [src]="p.logo"
+          [alt]="p.name + ' logo'"
+          [style.view-transition-name]="'logo-' + p.slug"
+        />
+      </div>
+      <div>
+        <p class="discipline mono">// {{ p.discipline }}</p>
+        <h1 class="bold glitch" [attr.data-text]="p.name">{{ p.name }}</h1>
+        <p class="thin summary">{{ p.summary }}</p>
+      </div>
+    </header>
+
+    @for (s of p.sections; track s.heading; let i = $index) {
+      <section [style.--i]="i">
+        <h2 class="bold"><span class="index mono">[0{{ i + 1 }}]</span> {{ s.heading }}</h2>
+        <p>{{ s.body }}</p>
+      </section>
+    }
+  </article>
+}

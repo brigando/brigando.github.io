@@ -1,0 +1,56 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 150; // above the intro screen (100), below scanlines (1000)
+  pointer-events: none;
+  color: var(--hud-color);
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+$inset: 1rem;
+$size: 1.25rem;
+
+.corner {
+  position: absolute;
+  width: $size;
+  height: $size;
+  border: 0 solid var(--hud-color);
+
+  &.tl { top: $inset; left: $inset; border-top-width: 1px; border-left-width: 1px; }
+  &.tr { top: $inset; right: $inset; border-top-width: 1px; border-right-width: 1px; }
+  &.bl { bottom: $inset; left: $inset; border-bottom-width: 1px; border-left-width: 1px; }
+  &.br { bottom: $inset; right: $inset; border-bottom-width: 1px; border-right-width: 1px; }
+}
+
+.readout {
+  position: absolute;
+  text-transform: uppercase;
+
+  &.top-left { top: $inset + 0.5rem; left: $inset + 1.75rem; }
+  &.top-right { top: $inset + 0.5rem; right: $inset + 1.75rem; text-align: right; }
+  &.bottom-left { bottom: $inset + 0.5rem; left: $inset + 1.75rem; }
+  &.bottom-right { bottom: $inset + 0.5rem; right: $inset + 1.75rem; text-align: right; }
+}
+
+.dim {
+  opacity: 0.55;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-inline-start: 0.25rem;
+  border-radius: 50%;
+  background: #4dff9a;
+  box-shadow: 0 0 6px #4dff9a;
+  animation: blink 1.4s steps(1) infinite;
+}
+
+@media (max-width: 700px) {
+  .bottom-left,
+  .top-right .dim {
+    display: none;
+  }
+}

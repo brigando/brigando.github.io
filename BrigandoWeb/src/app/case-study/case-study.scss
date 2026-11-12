@@ -1,0 +1,128 @@
+$cut: 0.9rem;
+$shape: polygon($cut 0, 100% 0, 100% calc(100% - #{$cut}), calc(100% - #{$cut}) 100%, 0 100%, 0 $cut);
+
+.case-study {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 4.5rem 1.5rem 6rem;
+  color: var(--main-fg-color);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.back {
+  display: inline-block;
+  margin-block-end: 2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--main-fg-color);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, letter-spacing 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    letter-spacing: 0.2em;
+  }
+}
+
+.hero {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-block-end: 3rem;
+  animation: rise 0.6s ease-out both;
+
+  h1 {
+    margin: 0;
+    font-size: 3rem;
+    line-height: 1.1;
+  }
+
+  .discipline {
+    margin: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .summary {
+    margin-block: 0.5rem 0;
+    font-size: 1.25rem;
+  }
+}
+
+// Logo inside a cut-corner frame with a thin border.
+.logo-frame {
+  flex: none;
+  padding: 2px;
+  clip-path: $shape;
+  background: var(--accent);
+
+  .logo {
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    clip-path: $shape;
+    background:
+      repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 4px),
+      var(--card-panel-color);
+  }
+}
+
+section {
+  position: relative;
+  margin-block-end: 1rem;
+  padding: 1.25rem 1.5rem;
+  clip-path: $shape;
+  background: rgba(10, 10, 14, 0.55);
+  backdrop-filter: blur(4px);
+  animation: rise 0.6s ease-out both;
+  animation-delay: calc(0.15s + var(--i) * 0.08s);
+
+  // Accent tick down the left edge.
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: $cut;
+    bottom: 0;
+    width: 2px;
+    background: var(--card-fg-color);
+    opacity: 0.6;
+  }
+
+  h2 {
+    margin-block: 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .index {
+    margin-inline-end: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: normal;
+    opacity: 0.6;
+    vertical-align: middle;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
