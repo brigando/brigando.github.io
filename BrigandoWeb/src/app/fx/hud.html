@@ -1,0 +1,22 @@
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<div class="readout mono top-left">
+  BRIGANDO<span class="dim">//</span>SYS <span class="dim">v2.6</span>
+  <div class="dim">NODE.ONLINE <span class="dot"></span></div>
+</div>
+
+<div class="readout mono top-right">
+  T {{ time() }}
+  <div class="dim">SIG ▮▮▮▮▯</div>
+</div>
+
+<div class="readout mono bottom-left">
+  X:{{ pad(x()) }} Y:{{ pad(y()) }}
+</div>
+
+<div class="readout mono bottom-right">
+  <span class="dim">PATH</span> {{ route() }}
+</div>

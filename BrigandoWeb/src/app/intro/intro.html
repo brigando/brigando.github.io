@@ -1,0 +1,40 @@
+<div class="intro" [class.ready]="state() !== 'loading'" [class.leaving]="state() === 'leaving'">
+  <h1 class="word bold" [class.glitch]="state() !== 'loading'" data-text="Brigando" aria-label="Brigando">
+    @for (l of letters; track $index) {
+      <span class="letter" aria-hidden="true" [style.--i]="$index">{{ l }}</span>
+    }
+  </h1>
+
+  <div class="stage">
+    <div class="loader">
+      <div class="meter mono">
+        <span>LOADING</span>
+        <span>{{ percent().toString().padStart(3, '0') }}%</span>
+      </div>
+      <div class="bar" role="progressbar" aria-label="Loading" [attr.aria-valuenow]="percent()">
+        <span [style.width.%]="percent()"></span>
+      </div>
+    </div>
+
+    <button
+      #enterButton
+      class="enter mono"
+      type="button"
+      [disabled]="state() !== 'ready'"
+      (click)="enter()"
+    >
+      [ Enter ]
+    </button>
+  </div>
+
+  <ol class="log mono" aria-hidden="true">
+    @for (line of log(); track $index; let lastLine = $last) {
+      <li [class.cursor-blink]="lastLine">
+        <span class="prompt">&gt;</span> {{ line }}
+        @if (!lastLine || state() !== 'loading') {
+          <span class="ok">OK</span>
+        }
+      </li>
+    }
+  </ol>
+</div>

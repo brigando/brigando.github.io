@@ -14,6 +14,7 @@
   --main-fg-color: #F0F0F0;
   --card-bg-color: #8b89a6;
   --card-fg-color: #FFFFFF;
+  --card-panel-color: #1f2026;
 
   --primary-nth: #327e8b;
   --secondary-nth: #1e4147;
@@ -23,33 +24,108 @@
   --primary-btech: #35418f;
 
   --primary-brn: #e77b34;
+
+  --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+  --hud-color: rgba(240, 240, 240, 0.45);
+}
+
+/* Registered so the card edge colour can transition (used in home.scss). */
+
+@property --edge {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
 }
 
 body {
-  height: 100%;
+  min-height: 100vh;
+  margin: 0;
   background-color: var(--main-bg-color);
 }
 
-.nth-hovered-bg {
-  transition: 0.3s ease-in-out;
-  background-image: linear-gradient(200deg, var(--main-bg-color), var(--secondary-nth));
-  background-size: 150% 150%;
+::selection {
+  color: var(--main-bg-color);
+  background: var(--main-fg-color);
 }
 
-.soarer-hovered-bg {
-  transition: 0.3s ease-in-out;
-  background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-soarer));
-  background-size: 150% 150%;
+.bold {
+  font-family: 'tomorrow-bold';
 }
 
-.btech-hovered-bg {
-  transition: 0.3s ease-in-out;
-  background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-btech));
-  background-size: 150% 150%;
+.thin {
+  font-family: 'tomorrow-thin';
 }
 
-.brn-hovered-bg {
-  transition: 0.3s ease-in-out;
-  background-image: linear-gradient(200deg, var(--main-bg-color), var(--primary-brn));
-  background-size: 150% 150%;
+.mono {
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+}
+
+/* CRT scanlines + vignette over everything. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, 0.18) 2px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* RGB-split glitch: element needs data-text matching its content. */
+.glitch {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    color: #d8d4d5;
+    animation: glitch-a 5s infinite steps(1);
+  }
+
+  &::after {
+    color: #0f1213;
+    animation: glitch-b 5s infinite steps(1);
+  }
+}
+
+@keyframes glitch-a {
+  0%, 88%, 100% { opacity: 0; transform: none; clip-path: none; }
+  89% { opacity: 0.8; transform: translate(-3px, 1px); clip-path: inset(10% 0 55% 0); }
+  91% { opacity: 0.8; transform: translate(3px, -1px); clip-path: inset(60% 0 8% 0); }
+  93% { opacity: 0.8; transform: translate(-2px, 0); clip-path: inset(35% 0 40% 0); }
+  95% { opacity: 0; }
+}
+
+@keyframes glitch-b {
+  0%, 88%, 100% { opacity: 0; transform: none; clip-path: none; }
+  90% { opacity: 0.8; transform: translate(3px, -1px); clip-path: inset(45% 0 30% 0); }
+  92% { opacity: 0.8; transform: translate(-3px, 2px); clip-path: inset(5% 0 75% 0); }
+  94% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '_';
+  margin-inline-start: 0.1em;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch::before,
+  .glitch::after,
+  .cursor-blink::after {
+    animation: none;
+  }
 }

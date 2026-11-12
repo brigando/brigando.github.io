@@ -1,0 +1,252 @@
+.title {
+  font-size: 4rem;
+}
+
+.subtitle {
+  min-height: 1.2em;
+  font-size: 1.5rem;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-block-start: 4rem;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-fg-color);
+}
+
+.card-row {
+  display: flex;
+  height: 32rem;
+  gap: 2rem;
+  padding-block: 2rem;
+  padding-inline: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+// Cut-corner silhouette shared by every clipped layer.
+$cut: 1.25rem;
+$shape: polygon(
+  $cut 0,
+  100% 0,
+  100% calc(100% - #{$cut}),
+  calc(100% - #{$cut}) 100%,
+  0 100%,
+  0 $cut
+);
+$ease: 0.3s ease-in-out;
+
+.card {
+  --rx: 0deg;
+  --ry: 0deg;
+  --glare-x: 50%;
+  --glare-y: 50%;
+  --edge: var(--card-bg-color);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  height: 16rem;
+  padding-block: 4rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: transparent;
+
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition:
+    width $ease,
+    height $ease,
+    --edge $ease,
+    opacity 0.4s ease-in-out,
+    filter 0.4s ease-in-out,
+    transform 0.15s ease-out;
+
+  h3,
+  h4 {
+    margin: 0;
+    transition: transform 0.3s ease-out, color $ease;
+  }
+
+  h4 {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .sq-logo {
+    width: 6rem;
+    height: 6rem;
+    transition: transform 0.3s ease-out, width $ease, height $ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    --edge: var(--accent);
+
+    width: 24rem;
+    height: 32rem;
+    color: var(--card-fg-color);
+
+    h3,
+    h4 {
+      transform: translateZ(40px);
+    }
+
+    .sq-logo {
+      width: 10rem;
+      height: 10rem;
+      transform: translateZ(70px);
+    }
+
+    .glare {
+      opacity: 1;
+    }
+
+    .glow {
+      opacity: 0.55;
+    }
+
+    .fill {
+      inset: 2px;
+    }
+
+    .scan {
+      animation: scan 2.2s linear infinite;
+    }
+
+    .tag {
+      color: var(--accent);
+    }
+  }
+}
+
+// While one card is hovered or focused, grey out the others (and the dividers).
+.card-row:has(.card:hover, .card:focus-visible) {
+  .card:not(:hover, :focus-visible) {
+    opacity: 0.35;
+    filter: grayscale(1);
+  }
+
+  .divider {
+    opacity: 0.3;
+  }
+}
+
+.divider {
+  transition: opacity 0.4s ease-in-out;
+}
+
+// Blurred copy of the shape behind the card, standing in for a box-shadow.
+.glow {
+  position: absolute;
+  inset: 0.75rem;
+  clip-path: $shape;
+  background: var(--accent);
+  filter: blur(28px);
+  opacity: 0;
+  transform: translateZ(-1px);
+  transition: opacity $ease;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  clip-path: $shape;
+  background: var(--edge); // shows through around .fill as the border
+
+  > * {
+    position: absolute;
+  }
+}
+
+.fill {
+  inset: 1px;
+  clip-path: $shape;
+  background:
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 4px),
+    var(--card-panel-color);
+  transition: inset $ease;
+}
+
+.tag {
+  top: 0.4rem;
+  right: 0.6rem;
+  font-size: 0.65rem;
+  color: var(--card-bg-color);
+  transition: color $ease;
+}
+
+.chevron {
+  top: 0.45rem;
+  left: 1.6rem;
+  width: 2.5rem;
+  height: 0.3rem;
+  background: repeating-linear-gradient(115deg, var(--edge) 0 4px, transparent 4px 8px);
+}
+
+.barcode {
+  bottom: 0.45rem;
+  left: 0.6rem;
+  width: 3rem;
+  height: 0.4rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--edge) 0 1px,
+    transparent 1px 3px,
+    var(--edge) 3px 5px,
+    transparent 5px 6px
+  );
+  opacity: 0.7;
+}
+
+.scan {
+  left: 0;
+  right: 0;
+  top: -10%;
+  height: 10%;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  opacity: 0.25;
+}
+
+.glare {
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--glare-x) var(--glare-y),
+    rgba(255, 255, 255, 0.25),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity $ease;
+}
+
+.divider {
+  width: 1px;
+  height: 4rem;
+  background-color: var(--card-bg-color);
+}
+
+@keyframes scan {
+  to {
+    top: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transform: none;
+  }
+
+  .card:hover .scan {
+    animation: none;
+  }
+}

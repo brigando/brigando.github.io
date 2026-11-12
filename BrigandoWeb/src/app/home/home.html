@@ -1,0 +1,42 @@
+<div class="title-container">
+  <div class="title bold glitch" data-text="Brigando">Brigando</div>
+  <div class="subtitle thin cursor-blink" [attr.aria-label]="subtitle">{{ typed() }}</div>
+</div>
+
+<div class="card-container">
+  <div class="card-row">
+    @for (p of projects; track p.slug; let i = $index, last = $last) {
+      <a
+        #card
+        class="card"
+        [routerLink]="['/work', p.slug]"
+        [style.--accent]="p.accent"
+        [attr.aria-label]="p.name + ' case study'"
+        (mouseenter)="enter(p.slug)"
+        (mousemove)="tilt($event, card)"
+        (mouseleave)="leave(card)"
+        (focus)="enter(p.slug)"
+        (blur)="leave(card)"
+      >
+        <!-- Clipped panel: border, fill, decoration. Text sits above it in 3D. -->
+        <div class="glow" aria-hidden="true"></div>
+        <div class="panel" aria-hidden="true">
+          <div class="fill"></div>
+          <span class="tag mono">0{{ i + 1 }}</span>
+          <span class="chevron"></span>
+          <span class="barcode"></span>
+          <span class="scan"></span>
+          <span class="glare"></span>
+        </div>
+
+        <h3 class="bold">{{ p.name }}</h3>
+        <img class="sq-logo" [src]="p.logo" [alt]="p.name + ' logo'" [style.view-transition-name]="'logo-' + p.slug" />
+        <h4 class="thin">{{ p.discipline }}</h4>
+      </a>
+
+      @if (!last) {
+        <div class="divider"></div>
+      }
+    }
+  </div>
+</div>
